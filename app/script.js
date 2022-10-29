@@ -19,7 +19,7 @@ const App =() => {
 
 
   const [status, setStatus]  = useState('off');
-  const [time, setTimer]= useState(1200);
+  const [time, setTime]= useState(1200);
   const [timeOn, setTimeOn]= useState(false);
 
 
@@ -28,33 +28,39 @@ const App =() => {
   const startTimer = () => {
     
     
-    setTimer(1200)
-    setStatus('work');
-    console.log(status)
-    console.log(time)
     
-    if(time === 0 ){
-      if(status === 'work'){
-        status === 'rest'
-        console.log('zmiana')
-        setTimer(100)
-      }else if(status === 'rest'){
-        status === 'work'
-        setTimer(1200)
-      }
+    setStatus('work');
+    let count = 
+    setTimeOn(setInterval(() => {
+     let timeGoOn= setTime(timeMinus => count = timeMinus - 1);
+      console.log(count)
+
+      if(count === 0 ){
       
-    }
-    useEffect(()=>{
-    setTimer(setInterval(() => {
-     let timeGoOn= setTimer(timeMinus => timeMinus - 1);
-    },1000))},[timeOn])
+        if(status === 'work'){
+          status === 'rest'
+          setTime(100)
+
+        }else if(status === 'rest'){
+          status === 'work'
+          setTime(1200)
+          
+        }    
+      }
+    })) 
+
   }
+
+  const closseApp = () =>{
+    window.close()
+  
+  };
 
   const stopTimer=()=>{
 
-    setTimer(1200)
+    setTime(1200)
     setStatus('off')
-    setTimeOn[true]
+    clearInterval(timeOn)
 
   }
 
@@ -78,14 +84,14 @@ const App =() => {
         {status === "work" && (<img src="./images/work.png" />)}
         {status === "rest" && (<img src="./images/rest.png" />)}
         <div className="timer">
-          {<FormatTime time={time}/>}
+          { status !== "off" && <FormatTime time={time}/>}
         </div>
-      { status === "off" && (<button className="btn" onClick={()=>{startTimer()}} >Start</button>)}
-      { status !== "off" && (<button className="btn">Stop</button>)}
-        <button className="btn btn-close" onClick={stopTimer}>X</button>
+      { status === "off" && (<button className="btn" onClick={()=>{startTimer()}} >Start</button>)}  
+      { status !== "off" && status !== "rest" && (<button className="btn" onClick={()=>{stopTimer()}}>Stop</button>)}
+        <button className="btn btn-close" onClick={closseApp}>X</button>
       </div>
     )
       
-  };
+};
 
   render(<App />, document.querySelector('#app'));
