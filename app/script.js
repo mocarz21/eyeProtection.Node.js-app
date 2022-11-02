@@ -23,6 +23,23 @@ const App =() => {
   const [timeOn, setTimeOn]= useState(false);
 
 
+useEffect(()=>{
+
+      if(time === 0 ){
+      
+        if(status === 'work'){
+          setStatus('rest'); 
+          setTime(100);
+
+
+        }else if(status === 'rest'){
+          setStatus('work');
+          setTime(1200);
+          
+          
+        }    
+      }
+},[time, status])
 
 
   const startTimer = () => {
@@ -35,19 +52,8 @@ const App =() => {
      let timeGoOn= setTime(timeMinus => count = timeMinus - 1);
       console.log(count)
 
-      if(count === 0 ){
-      
-        if(status === 'work'){
-          status === 'rest'
-          setTime(100)
 
-        }else if(status === 'rest'){
-          status === 'work'
-          setTime(1200)
-          
-        }    
-      }
-    })) 
+    }, 1000)) 
 
   }
 
